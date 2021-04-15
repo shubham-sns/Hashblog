@@ -1,11 +1,7 @@
 import React from "react";
 
 function Enter() {
-  return (
-    <main>
-      <h1>Sign Up</h1>
-    </main>
-  );
+  return <main>sign up</main>;
 }
 
 export default Enter;
