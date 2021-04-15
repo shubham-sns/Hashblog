@@ -1,7 +1,7 @@
-import { Spinner } from "@chakra-ui/react";
+import {Spinner} from '@chakra-ui/react'
 
-function Loader({ show }) {
-  if (!show) return null;
+function Loader({show}) {
+  if (!show) return null
 
   return (
     <Spinner
@@ -11,7 +11,7 @@ function Loader({ show }) {
       color="_blue"
       size="xl"
     />
-  );
+  )
 }
 
-export { Loader };
+export {Loader}

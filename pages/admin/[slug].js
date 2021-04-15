@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
 function AdminPostEdit() {
-  return <div></div>;
+  return <div></div>
 }
 
-export default AdminPostEdit;
+export default AdminPostEdit
