@@ -1,6 +1,6 @@
 import '@/styles/globals.css'
 
-import {ChakraProvider} from '@chakra-ui/react'
+import {Box, ChakraProvider} from '@chakra-ui/react'
 import {extendTheme} from '@chakra-ui/react'
 
 import {Navbar} from '@/components/navbar'
@@ -20,30 +20,13 @@ const theme = extendTheme({
     body: 'Inter',
   },
   styles: {
-    global: {
-      body: {
-        marginTop: '50px',
-      },
-      main: {
-        padding: '1rem 10vw',
-      },
-      img: {maxWidth: '100%'},
-      input: {
-        display: 'inline-block',
-        outline: 'none',
-        border: 'none',
-        fontSize: '1.5rem',
-        width: '100%',
-        padding: '5px 10px',
-      },
-      fieldset: {
-        border: 'none',
-        padding: '1em 0',
-        fontSize: '1.25rem',
-      },
-      code: {
-        overflowX: 'scroll',
-      },
+    global: props => {
+      return {
+        body: {
+          marginTop: '70px',
+          backgroundColor: props.theme.colors._bg,
+        },
+      }
     },
   },
 })
@@ -52,7 +35,9 @@ function MyApp({Component, pageProps}) {
   return (
     <ChakraProvider theme={theme} resetCSS>
       <Navbar />
-      <Component {...pageProps} />
+      <Box as="main" px="10vw" py="1rem">
+        <Component {...pageProps} />
+      </Box>
     </ChakraProvider>
   )
 }

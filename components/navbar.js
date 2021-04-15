@@ -21,6 +21,7 @@ function Navbar() {
       zIndex="99"
       borderBottom="1px"
       borderColor="_grey"
+      background="white"
     >
       <Flex
         as="ul"
@@ -50,7 +51,7 @@ function Navbar() {
           <>
             <Box as="li" marginLeft="auto" marginRight="5">
               <Link href="admin" href="/admin">
-                <Button colorScheme="blue" size="lg">
+                <Button colorScheme="messenger" size="lg">
                   Write Posts
                 </Button>
               </Link>
@@ -82,7 +83,7 @@ function Navbar() {
           <>
             <Box as="li">
               <Link href="/enter">
-                <Button colorScheme="blue" size="lg">
+                <Button colorScheme="messenger" size="lg">
                   Login
                 </Button>
               </Link>
