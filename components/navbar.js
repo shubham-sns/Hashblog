@@ -4,9 +4,10 @@ import {Box, Flex} from '@chakra-ui/layout'
 import {Button} from '@chakra-ui/button'
 import {Image} from '@chakra-ui/image'
 
+import {useUserContext} from '@/context/user-context'
+
 function Navbar() {
-  const username = null
-  const user = null
+  const {user, username} = useUserContext()
 
   return (
     <Box

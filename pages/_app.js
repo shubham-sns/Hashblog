@@ -4,6 +4,7 @@ import {Box, ChakraProvider} from '@chakra-ui/react'
 import {extendTheme} from '@chakra-ui/react'
 
 import {Navbar} from '@/components/navbar'
+import {UserProvider} from '@/context/user-context'
 
 const colors = {
   _bg: '#eef0f1',
@@ -34,10 +35,12 @@ const theme = extendTheme({
 function MyApp({Component, pageProps}) {
   return (
     <ChakraProvider theme={theme} resetCSS>
-      <Navbar />
-      <Box as="main" px="10vw" py="1rem">
-        <Component {...pageProps} />
-      </Box>
+      <UserProvider>
+        <Navbar />
+        <Box as="main" px="10vw" py="1rem">
+          <Component {...pageProps} />
+        </Box>
+      </UserProvider>
     </ChakraProvider>
   )
 }

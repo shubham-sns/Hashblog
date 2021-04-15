@@ -1,11 +1,12 @@
+import React from 'react'
 import {auth, googleAuthProvider} from '@/lib/firebase'
 import {Button} from '@chakra-ui/button'
 import {Image} from '@chakra-ui/image'
-import React from 'react'
+
+import {useUserContext} from '@/context/user-context'
 
 function Enter() {
-  const user = null
-  const username = null
+  const {user, username} = useUserContext()
 
   return (
     <>
@@ -31,7 +32,7 @@ function SignInButton() {
         //* code which runs on success
       })
       .catch(error => {
-        // Handle Errors here.
+        //* Handle Errors here.
         const errorCode = error.code
         console.log(errorCode)
 
@@ -65,6 +66,8 @@ function SignOutButton() {
   )
 }
 
-function UserNameForm() {}
+function UserNameForm() {
+  return <form></form>
+}
 
 export default Enter
