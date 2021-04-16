@@ -18,19 +18,11 @@ import {Input} from '@chakra-ui/input'
 function Enter() {
   const {user, username} = useUserContext()
 
-  return (
-    <>
-      {user ? (
-        !username ? (
-          <UserNameForm />
-        ) : (
-          <SignOutButton />
-        )
-      ) : (
-        <SignInButton />
-      )}
-    </>
-  )
+  if (!user) return <SignInButton />
+
+  if (username) return <SignOutButton />
+
+  return <UserNameForm />
 }
 
 function SignInButton() {
@@ -174,15 +166,15 @@ function UserNameForm() {
             onChange={handleChange}
           />
 
-          {isValid ? (
-            <FormHelperText>'{formValue}' is available.</FormHelperText>
-          ) : null}
-
-          {formValue && !isValid ? (
+          {loading ? null : isValid ? (
+            <FormHelperText>'{formValue}' is available</FormHelperText>
+          ) : (
             <FormErrorMessage>
-              Usrname is taken, try different username
+              {formValue.length < 3
+                ? 'length of username must be 4 or more.'
+                : 'Username is taken, try different username'}
             </FormErrorMessage>
-          ) : null}
+          )}
         </FormControl>
 
         <Button
@@ -201,7 +193,6 @@ function UserNameForm() {
       <Heading as="h3" size="md" mt="5" mb="2">
         Debug State
       </Heading>
-      <Text>Username: {formValue}</Text>
       <Text>Username Valid: {isValid.toString()}</Text>
     </Flex>
   )
