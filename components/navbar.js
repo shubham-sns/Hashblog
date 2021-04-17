@@ -1,12 +1,15 @@
 import Link from 'next/link'
+import {useRouter} from 'next/router'
 
 import {Box, Flex} from '@chakra-ui/layout'
 import {Button} from '@chakra-ui/button'
 import {Image} from '@chakra-ui/image'
 
 import {useUserContext} from '@/context/user-context'
+import {Avatar} from '@chakra-ui/avatar'
 
 function Navbar() {
+  const {push} = useRouter()
   const {user, username} = useUserContext()
 
   return (
@@ -61,21 +64,24 @@ function Navbar() {
             <Box as="li" marginRight="5">
               <Link href="admin" href={`/${username}`}>
                 <Button size="lg" colorScheme="gray">
-                  Log Out
+                  Log out
                 </Button>
               </Link>
             </Box>
 
             <Box as="li">
-              <Link href="admin" href={`/${username}`}>
-                <Image
-                  cursor="pointer"
-                  src={`/${user?.photURL}`}
-                  boxSize="50px"
-                  borderRadius="full"
-                  fallbackSrc="https://via.placeholder.com/150"
-                />
-              </Link>
+              <Avatar
+                // cause a11y matters <3
+                _focus={{
+                  boxShadow: 'outline',
+                  outline: 'none',
+                }}
+                as="button"
+                onClick={() => push(`/${username}`)}
+                size="md"
+                name={username}
+                src={user?.photoURL}
+              />
             </Box>
           </>
         )}

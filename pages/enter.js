@@ -1,12 +1,7 @@
 import {useState, useEffect, useCallback} from 'react'
+import {Heading, Flex, Box, Text} from '@chakra-ui/layout'
 import {Button} from '@chakra-ui/button'
 import {Image} from '@chakra-ui/image'
-import debounce from 'lodash.debounce'
-import {useToast} from '@chakra-ui/toast'
-
-import {auth, firestore, googleAuthProvider} from '@/lib/firebase'
-import {useUserContext} from '@/context/user-context'
-import {Heading, Flex, Box, Text} from '@chakra-ui/layout'
 import {
   FormControl,
   FormErrorMessage,
@@ -14,6 +9,12 @@ import {
   FormLabel,
 } from '@chakra-ui/form-control'
 import {Input} from '@chakra-ui/input'
+import debounce from 'lodash.debounce'
+
+import {useToast} from '@chakra-ui/toast'
+
+import {auth, firestore, googleAuthProvider} from '@/lib/firebase'
+import {useUserContext} from '@/context/user-context'
 
 function Enter() {
   const {user, username} = useUserContext()
@@ -29,7 +30,6 @@ function SignInButton() {
   const toast = useToast()
 
   const signInWithGoogle = async () => {
-    // todo: try catch for errors
     await auth
       .signInWithPopup(googleAuthProvider)
       .then(result => {
@@ -93,7 +93,9 @@ function UserNameForm() {
       if (username.length >= 3) {
         const ref = firestore.doc(`usernames/${username}`)
         const {exists} = await ref.get()
-        console.log('Firestore read executed!')
+
+        console.info('Firestore read executed!')
+
         setIsValid(!exists)
         setLoading(false)
       }
