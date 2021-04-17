@@ -1,8 +1,10 @@
+import {AuthCheck} from '@/components/auth-check'
+
 function AdminPostsPage() {
   return (
-    <div>
+    <AuthCheck>
       <h1>Edit Post</h1>
-    </div>
+    </AuthCheck>
   )
 }
 
