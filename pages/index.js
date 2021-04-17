@@ -1,16 +1,14 @@
 import {useState} from 'react'
 import {Box} from '@chakra-ui/layout'
 import {Button} from '@chakra-ui/button'
-import {useToast} from '@chakra-ui/toast'
 
 import {Loader} from '@/components/loader'
 import {firestore, fromMillis, postToJSON} from '@/lib/firebase'
 import {PostFeed} from '@/components/postfeed'
-import {isLocalURL} from 'next/dist/next-server/lib/router/router'
 
 const POST_LIMIT = 1
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   const postsQuery = firestore
     .collectionGroup('posts')
     .where('isPublished', '==', true)
@@ -24,8 +22,8 @@ export async function getServerSideProps(context) {
   }
 }
 
-function Home(props) {
-  const [posts, setPosts] = useState(props.posts)
+function Home({posts: ssrPosts}) {
+  const [posts, setPosts] = useState(ssrPosts)
   const [loading, setLoading] = useState(false)
   const [postsEnd, setPostsEnd] = useState(false)
 
@@ -34,10 +32,7 @@ function Home(props) {
 
     const lastPost = posts[posts.length - 1]
 
-    const cursor =
-      typeof lastPost.createdAt === 'number'
-        ? fromMillis(lastPost.createdAt)
-        : lastPost.createdAt
+    const cursor = typeof lastPost.createdAt === 'number' ? fromMillis(lastPost.createdAt) : lastPost.createdAt
 
     const query = firestore
       .collectionGroup('posts')

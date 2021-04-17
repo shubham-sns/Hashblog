@@ -1,5 +1,6 @@
-import {Box, VStack} from '@chakra-ui/layout'
 import Link from 'next/link'
+import {Button} from '@chakra-ui/button'
+import {Box, VStack} from '@chakra-ui/layout'
 
 function PostFeed({posts, admin}) {
   if (!posts) return null
@@ -44,15 +45,11 @@ function PostItem({post, admin = false}) {
         <>
           <Link href={`/admin/${post.slug}`}>
             <h3>
-              <button className="btn-blue">Edit</button>
+              <Button colorScheme="messenger">Edit</Button>
             </h3>
           </Link>
 
-          {post.published ? (
-            <p className="text-success">Live</p>
-          ) : (
-            <p className="text-danger">Unpublished</p>
-          )}
+          {post.published ? <p className="text-success">Live</p> : <p className="text-danger">Unpublished</p>}
         </>
       )}
     </Box>

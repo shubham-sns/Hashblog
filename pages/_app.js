@@ -1,7 +1,6 @@
 import '@/styles/globals.css'
 
-import {Box, ChakraProvider} from '@chakra-ui/react'
-import {extendTheme} from '@chakra-ui/react'
+import {Box, ChakraProvider, extendTheme} from '@chakra-ui/react'
 
 import {Navbar} from '@/components/navbar'
 import {UserProvider} from '@/context/user-context'
@@ -21,14 +20,12 @@ const theme = extendTheme({
     body: 'Inter',
   },
   styles: {
-    global: props => {
-      return {
-        body: {
-          marginTop: '70px',
-          backgroundColor: props.theme.colors._bg,
-        },
-      }
-    },
+    global: props => ({
+      body: {
+        marginTop: '70px',
+        backgroundColor: props.theme.colors._bg,
+      },
+    }),
   },
 })
 

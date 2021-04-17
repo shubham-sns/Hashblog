@@ -1,5 +1,4 @@
 import {Avatar} from '@chakra-ui/avatar'
-import {Image} from '@chakra-ui/image'
 import {Flex, Heading, Text} from '@chakra-ui/layout'
 
 function UserProfile({user}) {

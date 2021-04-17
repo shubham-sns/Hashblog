@@ -1,7 +1,7 @@
 import React from 'react'
 
 function AdminPostEdit() {
-  return <div></div>
+  return <div />
 }
 
 export default AdminPostEdit

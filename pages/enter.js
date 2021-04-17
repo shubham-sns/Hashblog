@@ -1,13 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {useState, useEffect, useCallback} from 'react'
-import {Heading, Flex, Box, Text} from '@chakra-ui/layout'
+import {Heading, Flex, Text} from '@chakra-ui/layout'
 import {Button} from '@chakra-ui/button'
 import {Image} from '@chakra-ui/image'
-import {
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-} from '@chakra-ui/form-control'
+import {FormControl, FormErrorMessage, FormHelperText, FormLabel} from '@chakra-ui/form-control'
 import {Input} from '@chakra-ui/input'
 import debounce from 'lodash.debounce'
 
@@ -65,12 +61,7 @@ function SignInButton() {
 
 function SignOutButton() {
   return (
-    <Button
-      size="lg"
-      colorScheme="red"
-      variant="outline"
-      onClick={() => auth.signOut()}
-    >
+    <Button size="lg" colorScheme="red" variant="outline" onClick={() => auth.signOut()}>
       Sign Out
     </Button>
   )
@@ -83,11 +74,8 @@ function UserNameForm() {
 
   const {user, username} = useUserContext()
 
-  useEffect(() => {
-    checkUsername(formValue)
-  }, [formValue])
-
   // Hit the database for username match after each debounced change
+  // ? useCallback for 2 reasons -> 1. you want debounce to work even if page re-renders, 2. to put this into useEffect dep. array
   const checkUsername = useCallback(
     debounce(async username => {
       if (username.length >= 3) {
@@ -100,8 +88,12 @@ function UserNameForm() {
         setLoading(false)
       }
     }, 500),
-    [],
+    []
   )
+
+  useEffect(() => {
+    checkUsername(formValue)
+  }, [checkUsername, formValue])
 
   const onSubmit = async e => {
     e.preventDefault()
@@ -144,14 +136,7 @@ function UserNameForm() {
   if (username) return null
 
   return (
-    <Flex
-      direction="column"
-      justifyContent="center"
-      alignItems="flex-start"
-      as="section"
-      mx="auto"
-      width="50%"
-    >
+    <Flex direction="column" justifyContent="center" alignItems="flex-start" as="section" mx="auto" width="50%">
       <form style={{width: '100%'}} onSubmit={onSubmit}>
         <FormControl id="username" colorScheme="blue" isInvalid={!isValid}>
           <FormLabel>
@@ -160,23 +145,9 @@ function UserNameForm() {
             </Heading>
           </FormLabel>
 
-          <Input
-            borderColor="gray.400"
-            background="white"
-            size="lg"
-            value={formValue}
-            onChange={handleChange}
-          />
+          <Input borderColor="gray.400" background="white" size="lg" value={formValue} onChange={handleChange} />
 
-          {loading ? null : isValid ? (
-            <FormHelperText>'{formValue}' is available</FormHelperText>
-          ) : (
-            <FormErrorMessage>
-              {formValue.length < 3
-                ? 'length of username must be 4 or more.'
-                : 'Username is taken, try different username'}
-            </FormErrorMessage>
-          )}
+          <HelperText isValid={isValid} loading={loading} formValue={formValue} />
         </FormControl>
 
         <Button
@@ -197,6 +168,18 @@ function UserNameForm() {
       </Heading>
       <Text>Username Valid: {isValid.toString()}</Text>
     </Flex>
+  )
+}
+
+function HelperText({loading, formValue, isValid}) {
+  if (loading) return null
+
+  if (isValid) return <FormHelperText>'{formValue}' is available</FormHelperText>
+
+  return (
+    <FormErrorMessage>
+      {formValue.length < 3 ? 'length of username must be 4 or more.' : 'Username is taken, try different username'}
+    </FormErrorMessage>
   )
 }
 

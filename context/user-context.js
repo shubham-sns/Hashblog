@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import {useUserData} from 'hooks/use-user-data'
+import {useUserData} from '@/hooks/use-user-data'
 
 const userContext = React.createContext()
 

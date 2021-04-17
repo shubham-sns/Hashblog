@@ -27,15 +27,7 @@ function Navbar() {
       borderColor="_grey"
       background="white"
     >
-      <Flex
-        as="ul"
-        listStyleType="none"
-        m="0"
-        p="0"
-        alignItems="center"
-        justifyContent="space-between"
-        height="100%"
-      >
+      <Flex as="ul" listStyleType="none" m="0" p="0" alignItems="center" justifyContent="space-between" height="100%">
         <Box as="li">
           <Link href="/">
             <Button
