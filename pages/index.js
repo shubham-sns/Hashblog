@@ -1,13 +1,14 @@
 import {useState} from 'react'
+import Link from 'next/link'
 import {Box, Flex, Text, VStack} from '@chakra-ui/layout'
+import {Avatar} from '@chakra-ui/avatar'
 import {Button} from '@chakra-ui/button'
 
 import {Loader} from '@/components/loader'
 import {firestore, fromMillis, postToJSON} from '@/lib/firebase'
 import {PostFeed} from '@/components/post-feed'
-import {Avatar} from '@chakra-ui/avatar'
 import {useUserContext} from '@/context/user-context'
-import Link from 'next/link'
+import {Card} from '@/components/card'
 
 const POST_LIMIT = 1
 
@@ -28,7 +29,6 @@ export async function getServerSideProps() {
 function Home({posts: ssrPosts}) {
   const {user, username} = useUserContext()
 
-  console.log({ssrPosts})
   const [posts, setPosts] = useState(ssrPosts)
   const [loading, setLoading] = useState(false)
   const [postsEnd, setPostsEnd] = useState(false)
@@ -56,23 +56,12 @@ function Home({posts: ssrPosts}) {
     if (newPosts.length < POST_LIMIT) {
       setPostsEnd(true)
     }
-
-    console.log(postsEnd)
   }
 
   return (
-    <VStack spacing="8">
+    <VStack spacing="4">
       {username && (
-        <Box
-          p="4"
-          background="white"
-          w="full"
-          rounded="lg"
-          border
-          borderWidth="1px"
-          borderColor="_gray"
-          borderRadius="lg"
-        >
+        <Card>
           <Link href={`/${username}`}>
             <Flex mb="2">
               <Box cursor="pointer">
@@ -100,7 +89,7 @@ function Home({posts: ssrPosts}) {
               </Flex>
             </Link>
           </Box>
-        </Box>
+        </Card>
       )}
 
       <PostFeed posts={posts} />
@@ -114,22 +103,11 @@ function Home({posts: ssrPosts}) {
       <Loader show={loading} />
 
       {postsEnd && (
-        <Box
-          p="6"
-          my="5"
-          background="white"
-          w="full"
-          textAlign="center"
-          rounded="lg"
-          border
-          borderWidth="1px"
-          borderColor="_gray"
-          borderRadius="lg"
-        >
-          <Text fontSize="xl" color="gray.600">
+        <Card>
+          <Text textAlign="center" fontSize="xl" color="gray.600">
             You've reached at the end! 👋
           </Text>
-        </Box>
+        </Card>
       )}
     </VStack>
   )

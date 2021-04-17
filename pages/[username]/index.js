@@ -2,6 +2,7 @@ import {UserProfile} from '@/components/user-profile'
 import {PostFeed} from '@/components/post-feed'
 
 import {getUserWithUsername, postToJSON} from '@/lib/firebase'
+import {VStack} from '@chakra-ui/layout'
 
 export async function getServerSideProps({query}) {
   const {username} = query
@@ -10,6 +11,11 @@ export async function getServerSideProps({query}) {
 
   let user = null
   let posts = null
+
+  // if no user, short circuit to 404 page
+  if (!userDoc) {
+    return {notFound: true}
+  }
 
   if (userDoc) {
     user = userDoc.data()
@@ -33,7 +39,10 @@ function UserProfilePage({user, posts}) {
   return (
     <>
       <UserProfile user={user} />
-      <PostFeed posts={posts} />
+
+      <VStack spacing="4" mt="8">
+        <PostFeed posts={posts} />
+      </VStack>
     </>
   )
 }

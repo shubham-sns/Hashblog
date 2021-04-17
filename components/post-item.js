@@ -2,7 +2,9 @@ import Link from 'next/link'
 import {Button} from '@chakra-ui/button'
 import {Box, Flex, Heading, Text} from '@chakra-ui/layout'
 import {Avatar} from '@chakra-ui/avatar'
-import {formatDate} from 'utils/misc'
+
+import {formatDate} from '@/utils/misc'
+import {Card} from './card'
 
 function PostItem({post, admin = false}) {
   // Naive method to calc word count and read time
@@ -10,7 +12,7 @@ function PostItem({post, admin = false}) {
   const minutesToRead = (wordCount / 100 + 1).toFixed(0)
 
   return (
-    <Box p="4" background="white" border borderWidth="1px" borderColor="_gray" borderRadius="lg" w="full">
+    <Card>
       <Flex alignItems="center" justifyContent="space-between" mb="2">
         <Flex>
           <Avatar showBorder size="md" name={post.username} mr="2" color="white" bg="teal.500" />
@@ -57,7 +59,7 @@ function PostItem({post, admin = false}) {
         </Text>
         <span className="push-left">💗 {post.heartCount || 0} Hearts</span>
       </Flex>
-    </Box>
+    </Card>
   )
 }
 
