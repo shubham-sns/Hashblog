@@ -1,5 +1,5 @@
 import {UserProfile} from '@/components/user-profile'
-import {PostFeed} from '@/components/postfeed'
+import {PostFeed} from '@/components/post-feed'
 
 import {getUserWithUsername, postToJSON} from '@/lib/firebase'
 

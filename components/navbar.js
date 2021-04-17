@@ -24,7 +24,7 @@ function Navbar() {
       py="0"
       zIndex="99"
       borderBottom="1px"
-      borderColor="_grey"
+      borderColor="_gray"
       background="white"
     >
       <Flex as="ul" listStyleType="none" m="0" p="0" alignItems="center" justifyContent="space-between" height="100%">
@@ -46,7 +46,7 @@ function Navbar() {
         {username && (
           <>
             <Box as="li" marginLeft="auto" marginRight="5">
-              <Link href="admin" href="/admin">
+              <Link href="admin">
                 <Button colorScheme="messenger" size="lg">
                   Write Posts
                 </Button>
@@ -54,11 +54,9 @@ function Navbar() {
             </Box>
 
             <Box as="li" marginRight="5">
-              <Link href="admin" href={`/${username}`}>
-                <Button size="lg" colorScheme="gray">
-                  Log out
-                </Button>
-              </Link>
+              <Button size="lg" colorScheme="gray">
+                Log out
+              </Button>
             </Box>
 
             <Box as="li">

@@ -11,7 +11,7 @@ const colors = {
   _blue: '#3b49df',
   _red: '#df3b3b',
   _green: '#3bdf72',
-  _grey: '#b5bdc4',
+  _gray: '#b5bdc4',
 }
 
 const theme = extendTheme({
