@@ -67,7 +67,7 @@ function CreateNewPost() {
       uid,
       username,
       isPublished: false,
-      content: '# Hello world!',
+      content: '### Hello world! 🌍',
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
       heartCount: 0,

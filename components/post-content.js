@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import {Box, Divider, Flex, Heading, Text} from '@chakra-ui/layout'
-import ReactMarkdown from 'react-markdown'
 
 import {formatDate} from '@/utils/misc'
 import {Avatar} from '@chakra-ui/avatar'
+import {MarkdownRenderer} from './markdown-renderer'
 
 function PostContent({post}) {
   const createdAt = typeof post?.createdAt === 'number' ? new Date(post.createdAt) : post.createdAt.toDate()
@@ -49,7 +49,7 @@ function PostContent({post}) {
 
       <Divider orientation="horizontal" mb="6" />
 
-      <ReactMarkdown>{post.content}</ReactMarkdown>
+      <MarkdownRenderer>{post.content}</MarkdownRenderer>
     </>
   )
 }

@@ -3,10 +3,10 @@ import Link from 'next/link'
 import {Button} from '@chakra-ui/button'
 import {Box, Flex, Heading, Text} from '@chakra-ui/layout'
 import {Avatar} from '@chakra-ui/avatar'
-
-import {formatDate} from '@/utils/misc'
 import {Alert} from '@chakra-ui/alert'
 import ReactMarkdown from 'react-markdown'
+
+import {formatDate} from '@/utils/misc'
 import {Card} from './card'
 
 function PostItem({post, admin = false}) {
@@ -18,12 +18,23 @@ function PostItem({post, admin = false}) {
     <Card>
       <Flex alignItems="center" justifyContent="space-between" mb="2">
         <Flex>
-          <Avatar showBorder size="md" src={post.photoURL} name={post.username} mr="2" color="white" bg="teal.500" />
+          <Link href={`/${post.username}`}>
+            <Avatar
+              showBorder
+              size="md"
+              cursor="pointer"
+              src={post.photoURL}
+              name={post.username}
+              mr="2"
+              color="white"
+              bg="teal.500"
+            />
+          </Link>
 
           <Flex flexDirection="column">
-            <Link href={`/${post.username}`}>
-              <Text color="black">{post.username}</Text>
-            </Link>
+            <Text color="black" _hover={{textDecoration: 'underline'}}>
+              <Link href={`/${post.username}`}>{post.username}</Link>
+            </Text>
 
             <Text fontSize="sm" color="gray">
               {formatDate(new Date(post.createdAt))}
@@ -63,9 +74,10 @@ function PostItem({post, admin = false}) {
           <Link href={`/${post.username}/${post.slug}`}>{post.title}</Link>
         </Heading>
 
-        <Text color="gray">
-          <ReactMarkdown>{post.content.length > 140 ? `${post.content.slice(0, 140)}...` : post.content}</ReactMarkdown>
-        </Text>
+        {/* we are not using our custom markdown cause we dont want to style markdown we just want to parse and get hte string */}
+        {/* <ReactMarkdown>
+          {post.content.length > 140 ? `${post.content.slice(0, 140).replace(/<[^>]*>/gi, '')}...` : post.content}
+        </ReactMarkdown> */}
       </Flex>
 
       <Flex color="gray" as="footer" alignItems="center" justifyContent="space-between">
