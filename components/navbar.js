@@ -3,7 +3,6 @@ import {useRouter} from 'next/router'
 
 import {Box, Flex} from '@chakra-ui/layout'
 import {Button} from '@chakra-ui/button'
-import {Image} from '@chakra-ui/image'
 
 import {useUserContext} from '@/context/user-context'
 import {Avatar} from '@chakra-ui/avatar'
@@ -46,7 +45,7 @@ function Navbar() {
         {username && (
           <>
             <Box as="li" marginLeft="auto" marginRight="5">
-              <Link href="admin">
+              <Link href="/admin">
                 <Button colorScheme="messenger" size="lg">
                   Write Posts
                 </Button>
@@ -61,8 +60,10 @@ function Navbar() {
 
             <Box as="li">
               <Avatar
-                // cause a11y matters <3
+                color="white"
+                bg="teal.500"
                 _focus={{
+                  // cause a11y matters <3
                   boxShadow: 'outline',
                   outline: 'none',
                 }}

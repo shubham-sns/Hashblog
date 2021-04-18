@@ -1,9 +1,11 @@
 import Link from 'next/link'
+
 import {Button} from '@chakra-ui/button'
 import {Box, Flex, Heading, Text} from '@chakra-ui/layout'
 import {Avatar} from '@chakra-ui/avatar'
 
 import {formatDate} from '@/utils/misc'
+import {Alert} from '@chakra-ui/alert'
 import {Card} from './card'
 
 function PostItem({post, admin = false}) {
@@ -15,7 +17,7 @@ function PostItem({post, admin = false}) {
     <Card>
       <Flex alignItems="center" justifyContent="space-between" mb="2">
         <Flex>
-          <Avatar showBorder size="md" name={post.username} mr="2" color="white" bg="teal.500" />
+          <Avatar showBorder size="md" src={post.photoURL} name={post.username} mr="2" color="white" bg="teal.500" />
 
           <Flex flexDirection="column">
             <Link href={`/${post.username}`}>
@@ -30,19 +32,32 @@ function PostItem({post, admin = false}) {
 
         {/* If admin view, show extra controls for user */}
         {admin && (
-          <Flex alignItems="center">
-            {/* <Text mr="2" color={post.isPublished ? 'green' : 'red'}>
-              {post.isPublished ? 'live' : 'Unpublished'}
-            </Text> */}
+          <Flex>
+            <Alert
+              py="1"
+              px="3"
+              status={post.isPublished ? 'success' : 'warning'}
+              w="auto"
+              ml="auto"
+              rounded="lg"
+              variant="subtle"
+              alignItems="center"
+              justifyContent="center"
+              mr="2"
+              fontSize="lg"
+              fontWeight="bold"
+            >
+              {post.isPublished ? 'Live' : 'Draft'}
+            </Alert>
 
-            <Button color="gray" variant="ghost">
+            <Button color="gray" variant="outline">
               <Link href={`/admin/${post.slug}`}>Edit</Link>
             </Button>
           </Flex>
         )}
       </Flex>
 
-      <Flex flexDir="column" my="4">
+      <Flex flexDir="column" my="3">
         <Heading as="h4" fontSize="2xl">
           <Link href={`/${post.username}/${post.slug}`}>{post.title}</Link>
         </Heading>
@@ -57,7 +72,8 @@ function PostItem({post, admin = false}) {
           </Box>
           {minutesToRead} min read
         </Text>
-        <span className="push-left">💗 {post.heartCount || 0} Hearts</span>
+
+        <Box as="span">💗 {post.heartCount || 0} Hearts</Box>
       </Flex>
     </Card>
   )

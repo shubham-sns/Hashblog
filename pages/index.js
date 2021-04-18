@@ -5,10 +5,10 @@ import {Avatar} from '@chakra-ui/avatar'
 import {Button} from '@chakra-ui/button'
 
 import {Loader} from '@/components/loader'
-import {firestore, fromMillis, postToJSON} from '@/lib/firebase'
 import {PostFeed} from '@/components/post-feed'
 import {useUserContext} from '@/context/user-context'
 import {Card} from '@/components/card'
+import {firestore, fromMillis, postToJSON} from '@/lib/firebase'
 
 const POST_LIMIT = 1
 

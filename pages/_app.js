@@ -35,6 +35,7 @@ function MyApp({Component, pageProps}) {
       <UserProvider>
         <Navbar />
         <Box as="main" px="10vw" py="1rem">
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Component {...pageProps} />
         </Box>
       </UserProvider>
