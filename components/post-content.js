@@ -4,7 +4,6 @@ import ReactMarkdown from 'react-markdown'
 
 import {formatDate} from '@/utils/misc'
 import {Avatar} from '@chakra-ui/avatar'
-import {Card} from './card'
 
 function PostContent({post}) {
   const createdAt = typeof post?.createdAt === 'number' ? new Date(post.createdAt) : post.createdAt.toDate()
@@ -13,7 +12,7 @@ function PostContent({post}) {
   const minutesToRead = (wordCount / 100 + 1).toFixed(0)
 
   return (
-    <Card>
+    <>
       <Heading as="h1" mb="4">
         {post.title}
       </Heading>
@@ -51,7 +50,7 @@ function PostContent({post}) {
       <Divider orientation="horizontal" mb="6" />
 
       <ReactMarkdown>{post.content}</ReactMarkdown>
-    </Card>
+    </>
   )
 }
 
