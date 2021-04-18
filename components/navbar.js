@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import {useRef} from 'react'
 import {useRouter} from 'next/router'
 
 import {Box, Flex} from '@chakra-ui/layout'
@@ -6,10 +7,17 @@ import {Button} from '@chakra-ui/button'
 
 import {useUserContext} from '@/context/user-context'
 import {Avatar} from '@chakra-ui/avatar'
+import {useDisclosure} from '@chakra-ui/hooks'
+import {auth} from '@/lib/firebase'
+import {ConfirmDialog} from './logout-dialog'
 
 function Navbar() {
   const {push} = useRouter()
   const {user, username} = useUserContext()
+
+  const {isOpen, onClose, onOpen} = useDisclosure()
+
+  const cancelRef = useRef()
 
   return (
     <Box
@@ -26,6 +34,18 @@ function Navbar() {
       borderColor="_gray"
       background="white"
     >
+      <ConfirmDialog
+        isOpen={isOpen}
+        onClose={onClose}
+        cancelRef={cancelRef}
+        header="Log Out!"
+        body="Are you sure you want to logout?"
+        onConfirm={() => {
+          auth.signOut()
+          onClose()
+        }}
+      />
+
       <Flex as="ul" listStyleType="none" m="0" p="0" alignItems="center" justifyContent="space-between" height="100%">
         <Box as="li">
           <Link href="/">
@@ -53,7 +73,7 @@ function Navbar() {
             </Box>
 
             <Box as="li" marginRight="5">
-              <Button size="lg" colorScheme="gray">
+              <Button size="lg" colorScheme="gray" onClick={onOpen}>
                 Log out
               </Button>
             </Box>

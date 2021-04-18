@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useState, useEffect, useCallback} from 'react'
+
 import {Heading, Flex, Text} from '@chakra-ui/layout'
 import {Button} from '@chakra-ui/button'
 import {Image} from '@chakra-ui/image'
 import {FormControl, FormErrorMessage, FormHelperText, FormLabel} from '@chakra-ui/form-control'
 import {Input} from '@chakra-ui/input'
-import debounce from 'lodash.debounce'
-
 import {useToast} from '@chakra-ui/toast'
+import debounce from 'lodash.debounce'
 
 import {auth, firestore, googleAuthProvider} from '@/lib/firebase'
 import {useUserContext} from '@/context/user-context'
@@ -42,6 +42,7 @@ function SignInButton() {
           status: 'error',
           isClosable: true,
           variant: 'left-accent',
+          position: 'top',
         })
       })
   }

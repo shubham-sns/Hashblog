@@ -60,7 +60,7 @@ function Home({posts: ssrPosts}) {
 
   return (
     <VStack spacing="4">
-      {username && (
+      {user && (
         <Card>
           <Link href={`/${username}`}>
             <Flex mb="2">

@@ -80,6 +80,7 @@ function CreateNewPost() {
       title: 'Post Created',
       isClosable: true,
       status: 'success',
+      position: 'top',
     })
 
     router.push(`/admin/${slug}`)
