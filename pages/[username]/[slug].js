@@ -1,11 +1,9 @@
-import {Box, Flex, Stack, Text} from '@chakra-ui/layout'
+import {Text} from '@chakra-ui/layout'
 import {useDocumentData} from 'react-firebase-hooks/firestore'
 
-import {firestore, getUserWithUsername, postToJSON} from '@/lib/firebase'
-import {useMediaQuery} from '@chakra-ui/media-query'
 import {PostContent} from '@/components/post-content'
-import {Card} from '@/components/card'
-import {useUserContext} from '@/context/user-context'
+import {ContainerLayout} from '@/layouts/container'
+import {firestore, getUserWithUsername, postToJSON} from '@/lib/firebase'
 
 // incremental static site generation [https://arunoda.me/blog/what-is-nextjs-issg]
 export async function getStaticProps({params}) {
@@ -17,7 +15,9 @@ export async function getStaticProps({params}) {
 
   if (userDoc) {
     const postRef = userDoc.ref.collection('posts').doc(slug)
-    post = postToJSON(await postRef.get())
+    const postDoc = await postRef.get()
+    console.log(postDoc)
+    post = postToJSON(postDoc)
 
     path = postRef.path
   }
@@ -46,37 +46,15 @@ export async function getStaticPaths() {
 }
 
 function Post({path, post}) {
-  const {user} = useUserContext()
-
   const postRef = firestore.doc(path)
   const [realtimePost] = useDocumentData(postRef)
-
-  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
 
   const latestPost = realtimePost || post
 
   return (
-    <Stack spacing="1rem" direction={isLessThan768 ? 'column' : 'row'} minH="fit-content">
-      <Box as="section" width={isLessThan768 ? '100%' : '60vw'}>
-        <PostContent post={latestPost} />
-      </Box>
-
-      <Flex
-        as="aside"
-        flexDir="column"
-        w={isLessThan768 ? '100%' : '20%'}
-        pos={isLessThan768 ? 'relative' : 'sticky'}
-        minW="250px"
-        minH="200px"
-        textAlign="center"
-        h="0"
-        top="80px"
-      >
-        <Card>
-          <Text>{post.heartCount || 0} 💗</Text>
-        </Card>
-      </Flex>
-    </Stack>
+    <ContainerLayout aside={<Text>{post.heartCount || 0} 💗</Text>}>
+      <PostContent post={latestPost} />
+    </ContainerLayout>
   )
 }
 

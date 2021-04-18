@@ -6,6 +6,7 @@ import {Avatar} from '@chakra-ui/avatar'
 
 import {formatDate} from '@/utils/misc'
 import {Alert} from '@chakra-ui/alert'
+import ReactMarkdown from 'react-markdown'
 import {Card} from './card'
 
 function PostItem({post, admin = false}) {
@@ -62,7 +63,9 @@ function PostItem({post, admin = false}) {
           <Link href={`/${post.username}/${post.slug}`}>{post.title}</Link>
         </Heading>
 
-        <Text color="gray">{post.content.length > 140 ? `${post.content.slice(0, 140)}...` : post.content} </Text>
+        <Text color="gray">
+          <ReactMarkdown>{post.content.length > 140 ? `${post.content.slice(0, 140)}...` : post.content}</ReactMarkdown>
+        </Text>
       </Flex>
 
       <Flex color="gray" as="footer" alignItems="center" justifyContent="space-between">
