@@ -2,7 +2,7 @@
 import {useState, useEffect, useCallback} from 'react'
 import {useRouter} from 'next/router'
 
-import {Heading, Flex, Text} from '@chakra-ui/layout'
+import {Heading, Flex, Text, Box, VStack} from '@chakra-ui/layout'
 import {Button} from '@chakra-ui/button'
 import {Image} from '@chakra-ui/image'
 import {FormControl, FormErrorMessage, FormHelperText, FormLabel} from '@chakra-ui/form-control'
@@ -16,9 +16,14 @@ import {useUserContext} from '@/context/user-context'
 function Enter() {
   const {user, username} = useUserContext()
 
-  if (!user) return <SignInButton />
+  if (!user)
+    return (
+      <>
+        <SignInButton />
+      </>
+    )
 
-  if (username) return <SignOutButton />
+  if (user) return <SignOutButton />
 
   return <UserNameForm />
 }
@@ -48,15 +53,44 @@ function SignInButton() {
   }
 
   return (
-    <Button
-      leftIcon={<Image boxSize="30px" src="/google.png" />}
-      size="lg"
-      onClick={signInWithGoogle}
-      colorScheme="messenger"
-      variant="outline"
-    >
-      Sign In with Google
-    </Button>
+    <VStack>
+      <Button
+        leftIcon={<Image boxSize="30px" src="/google.png" />}
+        size="lg"
+        onClick={signInWithGoogle}
+        colorScheme="messenger"
+        variant="outline"
+      >
+        Sign In with Google
+      </Button>
+
+      <Button
+        colorScheme="gray"
+        borderColor="black"
+        size="lg"
+        variant="outline"
+        onClick={() => auth.signInAnonymously()}
+      >
+        <Box
+          as="svg"
+          h="8"
+          mr="2"
+          w="8"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </Box>
+        Sign in Anonymously
+      </Button>
+    </VStack>
   )
 }
 
