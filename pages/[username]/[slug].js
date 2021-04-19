@@ -58,12 +58,12 @@ function Post({path, post}) {
     <ContainerLayout
       aside={
         <>
-          <Text>{post.heartCount || 0} 💗</Text>
+          <Text mb="4">{latestPost.heartCount || 0} 💗</Text>
 
           <AuthCheck
             fallback={
               <Link href="/enter">
-                <Button>💗 Sign Up</Button>
+                <Button>Sign Up</Button>
               </Link>
             }
           >

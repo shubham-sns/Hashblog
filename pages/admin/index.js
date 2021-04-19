@@ -2,7 +2,7 @@ import {useState} from 'react'
 import {useRouter} from 'next/router'
 
 import {useToast} from '@chakra-ui/toast'
-import {Text, VStack} from '@chakra-ui/layout'
+import {Divider, Text, VStack} from '@chakra-ui/layout'
 import {useCollectionOnce} from 'react-firebase-hooks/firestore'
 import kebabCase from 'lodash.kebabcase'
 import {FormControl, FormHelperText, FormLabel} from '@chakra-ui/form-control'
@@ -30,6 +30,8 @@ function PostList() {
 
   const [querySnapshot] = useCollectionOnce(query)
   const posts = querySnapshot?.docs.map(postToJSON)
+
+  if (!posts?.length) return null
 
   return (
     <>
@@ -91,7 +93,7 @@ function CreateNewPost() {
       <FormControl id="title">
         <FormLabel>Post Title</FormLabel>
 
-        <Input borderColor="_gray" bg="white" onChange={e => setTitle(e.target.value)} />
+        <Input size="lg" borderColor="_gray" bg="white" onChange={e => setTitle(e.target.value)} />
 
         <FormHelperText>
           <Text as="span" fontWeight="semibold">

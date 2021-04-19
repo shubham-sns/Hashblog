@@ -4,7 +4,6 @@ import {Button} from '@chakra-ui/button'
 import {Box, Flex, Heading, Text} from '@chakra-ui/layout'
 import {Avatar} from '@chakra-ui/avatar'
 import {Alert} from '@chakra-ui/alert'
-import ReactMarkdown from 'react-markdown'
 
 import {formatDate} from '@/utils/misc'
 import {Card} from './card'
@@ -62,9 +61,11 @@ function PostItem({post, admin = false}) {
               {post.isPublished ? 'Live' : 'Draft'}
             </Alert>
 
-            <Button color="gray" variant="outline">
-              <Link href={`/admin/${post.slug}`}>Edit</Link>
-            </Button>
+            <Link href={`/admin/${post.slug}`}>
+              <Button color="gray" variant="outline">
+                Edit
+              </Button>
+            </Link>
           </Flex>
         )}
       </Flex>
@@ -73,11 +74,6 @@ function PostItem({post, admin = false}) {
         <Heading as="h4" fontSize="2xl">
           <Link href={`/${post.username}/${post.slug}`}>{post.title}</Link>
         </Heading>
-
-        {/* we are not using our custom markdown cause we dont want to style markdown we just want to parse and get hte string */}
-        {/* <ReactMarkdown>
-          {post.content.length > 140 ? `${post.content.slice(0, 140).replace(/<[^>]*>/gi, '')}...` : post.content}
-        </ReactMarkdown> */}
       </Flex>
 
       <Flex color="gray" as="footer" alignItems="center" justifyContent="space-between">
@@ -88,7 +84,9 @@ function PostItem({post, admin = false}) {
           {minutesToRead} min read
         </Text>
 
-        <Box as="span">💗 {post.heartCount || 0} Hearts</Box>
+        <Box as="span">
+          💗 {post.heartCount || 0} {post.heartCount > 1 ? 'Hearts' : 'Heart'}
+        </Box>
       </Flex>
     </Card>
   )

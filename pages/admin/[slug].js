@@ -1,14 +1,16 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import {useRef} from 'react'
 import Link from 'next/link'
-
 import {useRouter} from 'next/router'
+
 import {FormControl, FormErrorMessage} from '@chakra-ui/form-control'
 import {Textarea} from '@chakra-ui/textarea'
 import {Box, Text, VStack} from '@chakra-ui/layout'
 import {Checkbox} from '@chakra-ui/checkbox'
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/tabs'
-import {useToast} from '@chakra-ui/toast'
 import {Button} from '@chakra-ui/button'
+import {useToast} from '@chakra-ui/toast'
+import {useDisclosure} from '@chakra-ui/hooks'
 
 import {useDocumentDataOnce} from 'react-firebase-hooks/firestore'
 import {useForm, useWatch} from 'react-hook-form'
@@ -17,6 +19,8 @@ import {AuthCheck} from '@/components/auth-check'
 import {ContainerLayout} from '@/layouts/container'
 import {MarkdownRenderer} from '@/components/markdown-renderer'
 import {auth, firestore, serverTimestamp} from '@/lib/firebase'
+import {AirplaneIcon, DeleteIcon, EyeIcon, PencilIcon} from 'assets/icons'
+import {ConfirmDialog} from '@/components/logout-dialog'
 
 function AdminPostEdit() {
   return (
@@ -38,31 +42,18 @@ function PostManager() {
       aside={
         <Box>
           {isLoading ? null : (
-            <Button colorScheme="messenger" variant="outline">
-              <Link href={`/${post.username}/${post.slug}`}>
-                <>
-                  <Box
-                    as="svg"
-                    h="5"
-                    w="5"
-                    mr="2"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                    />
-                  </Box>
-                  View Live
-                </>
-              </Link>
-            </Button>
+            <>
+              <Button mt="2" colorScheme="messenger" variant="outline">
+                <Link href={`/${post.username}/${post.slug}`}>
+                  <>
+                    <AirplaneIcon />
+                    View Live
+                  </>
+                </Link>
+              </Button>
+
+              <DeletePost postRef={postRef} />
+            </>
           )}
         </Box>
       }
@@ -194,48 +185,40 @@ function PostForm({defaultValues, postRef}) {
   )
 }
 
-function PencilIcon() {
-  return (
-    <Box
-      as="svg"
-      h="5"
-      w="5"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      mr="1"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-      />
-    </Box>
-  )
-}
+function DeletePost({postRef}) {
+  const router = useRouter()
+  const toast = useToast()
 
-function EyeIcon() {
+  const {isOpen, onClose, onOpen} = useDisclosure()
+
+  const deletePost = async () => {
+    await postRef.delete()
+    router.push('/admin')
+    toast({
+      status: 'error',
+      title: 'Post annihilated ',
+      isClosable: true,
+    })
+  }
+
+  const cancelRef = useRef()
+
   return (
-    <Box
-      as="svg"
-      h="5"
-      w="5"
-      mr="1"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+    <>
+      <Button mt="4" colorScheme="red" variant="outline" onClick={onOpen}>
+        <DeleteIcon />
+        Delete
+      </Button>
+
+      <ConfirmDialog
+        header="Delete!!"
+        body="Are you sure you want to delete this post? This action can't be undone."
+        cancelRef={cancelRef}
+        isOpen={isOpen}
+        onClose={onClose}
+        onConfirm={deletePost}
       />
-    </Box>
+    </>
   )
 }
 

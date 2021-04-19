@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useState, useEffect, useCallback} from 'react'
+import {useRouter} from 'next/router'
 
 import {Heading, Flex, Text} from '@chakra-ui/layout'
 import {Button} from '@chakra-ui/button'
@@ -23,6 +24,7 @@ function Enter() {
 }
 
 function SignInButton() {
+  const router = useRouter()
   const toast = useToast()
 
   const signInWithGoogle = async () => {
@@ -30,12 +32,10 @@ function SignInButton() {
       .signInWithPopup(googleAuthProvider)
       .then(result => {
         //* code which runs on success
+        router.replace('/')
       })
       .catch(error => {
         //* Handle Errors here.
-        const errorCode = error.code
-        console.log(errorCode)
-
         const errorMessage = error.message
         toast({
           title: errorMessage,
