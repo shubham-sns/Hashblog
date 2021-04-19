@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import {Box, Divider, Flex, Heading, Text} from '@chakra-ui/layout'
+import {Avatar} from '@chakra-ui/avatar'
 
 import {formatDate} from '@/utils/misc'
-import {Avatar} from '@chakra-ui/avatar'
 import {MarkdownRenderer} from './markdown-renderer'
 
 function PostContent({post}) {

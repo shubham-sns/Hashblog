@@ -73,8 +73,8 @@ function Navbar() {
             </Box>
 
             <Box as="li" marginRight="5">
-              <Button size="lg" colorScheme="gray" onClick={onOpen}>
-                Log out
+              <Button size="lg" onClick={onOpen}>
+                Log Out
               </Button>
             </Box>
 

@@ -4,6 +4,10 @@ import {useDocumentData} from 'react-firebase-hooks/firestore'
 import {PostContent} from '@/components/post-content'
 import {ContainerLayout} from '@/layouts/container'
 import {firestore, getUserWithUsername, postToJSON} from '@/lib/firebase'
+import {AuthCheck} from '@/components/auth-check'
+import {HeartButton} from '@/components/heart-button'
+import Link from 'next/link'
+import {Button} from '@chakra-ui/button'
 
 // incremental static site generation [https://arunoda.me/blog/what-is-nextjs-issg]
 export async function getStaticProps({params}) {
@@ -51,7 +55,23 @@ function Post({path, post}) {
   const latestPost = realtimePost || post
 
   return (
-    <ContainerLayout aside={<Text>{post.heartCount || 0} 💗</Text>}>
+    <ContainerLayout
+      aside={
+        <>
+          <Text>{post.heartCount || 0} 💗</Text>
+
+          <AuthCheck
+            fallback={
+              <Link href="/enter">
+                <Button>💗 Sign Up</Button>
+              </Link>
+            }
+          >
+            <HeartButton postRef={postRef} />
+          </AuthCheck>
+        </>
+      }
+    >
       <PostContent post={latestPost} />
     </ContainerLayout>
   )

@@ -4,7 +4,7 @@ import {Flex, Heading, Text} from '@chakra-ui/layout'
 function UserProfile({user}) {
   return (
     <Flex justifyContent="center" alignItems="center" flexDir="column">
-      <Avatar size="2xl" name={user.username} src={user.photoURL} />
+      <Avatar size="2xl" name={user.username} src={user.photoURL} bg="teal.500" />
 
       <Text as="i" mt="4">
         @{user.username}
