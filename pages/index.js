@@ -10,7 +10,7 @@ import {useUserContext} from '@/context/user-context'
 import {Card} from '@/components/card'
 import {firestore, fromMillis, postToJSON} from '@/lib/firebase'
 
-const POST_LIMIT = 1
+const POST_LIMIT = 10
 
 export async function getServerSideProps() {
   const postsQuery = firestore
@@ -60,7 +60,7 @@ function Home({posts: ssrPosts}) {
 
   return (
     <VStack spacing="4">
-      {user && (
+      {username && (
         <Card>
           <Link href={`/${username}`}>
             <Flex mb="2">

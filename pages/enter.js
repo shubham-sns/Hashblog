@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useState, useEffect, useCallback} from 'react'
 import {useRouter} from 'next/router'
@@ -12,20 +13,16 @@ import debounce from 'lodash.debounce'
 
 import {auth, firestore, googleAuthProvider} from '@/lib/firebase'
 import {useUserContext} from '@/context/user-context'
+import {Metatags} from '@/components/mega-tags'
 
 function Enter() {
   const {user, username} = useUserContext()
-
-  if (!user)
-    return (
-      <>
-        <SignInButton />
-      </>
-    )
-
-  if (user) return <SignOutButton />
-
-  return <UserNameForm />
+  return (
+    <>
+      <Metatags title="Enter" description="Sign up for this amazing app!" />
+      {user ? !username ? <UserNameForm /> : <SignOutButton /> : <SignInButton />}
+    </>
+  )
 }
 
 function SignInButton() {

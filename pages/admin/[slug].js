@@ -43,14 +43,14 @@ function PostManager() {
         <Box>
           {isLoading ? null : (
             <>
-              <Button mt="2" colorScheme="messenger" variant="outline">
-                <Link href={`/${post.username}/${post.slug}`}>
+              <Link href={`/${post.username}/${post.slug}`}>
+                <Button mt="2" colorScheme="messenger" variant="outline">
                   <>
                     <AirplaneIcon />
                     View Live
                   </>
-                </Link>
-              </Button>
+                </Button>
+              </Link>
 
               <DeletePost postRef={postRef} />
             </>
@@ -198,6 +198,7 @@ function DeletePost({postRef}) {
       status: 'error',
       title: 'Post annihilated ',
       isClosable: true,
+      position: 'top',
     })
   }
 
