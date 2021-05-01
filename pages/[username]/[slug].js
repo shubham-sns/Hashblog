@@ -8,6 +8,7 @@ import {AuthCheck} from '@/components/auth-check'
 import {HeartButton} from '@/components/heart-button'
 import Link from 'next/link'
 import {Button} from '@chakra-ui/button'
+import {Metatags} from '@/components/meta-tags'
 
 // incremental static site generation [https://arunoda.me/blog/what-is-nextjs-issg]
 export async function getStaticProps({params}) {
@@ -55,25 +56,28 @@ function Post({path, post}) {
   const latestPost = realtimePost || post
 
   return (
-    <ContainerLayout
-      aside={
-        <>
-          <Text mb="4">{latestPost.heartCount || 0} 💗</Text>
+    <>
+      <Metatags title={post.title} description={post.title} />
+      <ContainerLayout
+        aside={
+          <>
+            <Text mb="4">{latestPost.heartCount || 0} 💗</Text>
 
-          <AuthCheck
-            fallback={
-              <Link href="/enter">
-                <Button>Sign Up</Button>
-              </Link>
-            }
-          >
-            <HeartButton postRef={postRef} />
-          </AuthCheck>
-        </>
-      }
-    >
-      <PostContent post={latestPost} />
-    </ContainerLayout>
+            <AuthCheck
+              fallback={
+                <Link href="/enter">
+                  <Button>Sign Up</Button>
+                </Link>
+              }
+            >
+              <HeartButton postRef={postRef} />
+            </AuthCheck>
+          </>
+        }
+      >
+        <PostContent post={latestPost} />
+      </ContainerLayout>
+    </>
   )
 }
 

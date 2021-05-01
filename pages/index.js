@@ -9,6 +9,7 @@ import {PostFeed} from '@/components/post-feed'
 import {useUserContext} from '@/context/user-context'
 import {Card} from '@/components/card'
 import {firestore, fromMillis, postToJSON} from '@/lib/firebase'
+import {Metatags} from '@/components/meta-tags'
 
 const POST_LIMIT = 10
 
@@ -59,57 +60,60 @@ function Home({posts: ssrPosts}) {
   }
 
   return (
-    <VStack spacing="4">
-      {username && (
-        <Card>
-          <Link href={`/${username}`}>
-            <Flex mb="2">
-              <Box cursor="pointer">
-                <Avatar src={user.photoURL} size="sm" mr="2" color="white" bg="teal.500" />
-                <Text display="inline" fontSize="xl" letterSpacing="tight">
-                  {username}
-                </Text>
-              </Box>
-            </Flex>
-          </Link>
-
-          <Box p="4" mt="2" bg="gray.100" rounded="xl" borderWidth="1px" borderColor="gray.300" borderRadius="lg">
-            <Link href="/admin">
-              <Flex cursor="pointer">
-                <Box as="svg" display="inline" w="6" mr="4" fill="current" viewBox="0 0 512 512">
-                  <path
-                    d="M498 142.08l-56.6 56.55-128-128 56.55-56.55a48 48 0 0167.91 0L498 74.17a48 48 0 010 67.91z"
-                    opacity=".4"
-                  />
-                  <path d="M12.85 371.11L.15 485.33a24 24 0 0026.49 26.51l114.14-12.6 278-278-128-128z" />
+    <>
+      <Metatags title="Home Page" description="Get the latest posts on our site" />
+      <VStack spacing="4">
+        {username && (
+          <Card>
+            <Link href={`/${username}`}>
+              <Flex mb="2">
+                <Box cursor="pointer">
+                  <Avatar src={user.photoURL} size="sm" mr="2" color="white" bg="teal.500" />
+                  <Text display="inline" fontSize="xl" letterSpacing="tight">
+                    {username}
+                  </Text>
                 </Box>
-                <Text as="span" fontSize="xl">
-                  Write an article...
-                </Text>
               </Flex>
             </Link>
-          </Box>
-        </Card>
-      )}
 
-      <PostFeed posts={posts} />
+            <Box p="4" mt="2" bg="gray.100" rounded="xl" borderWidth="1px" borderColor="gray.300" borderRadius="lg">
+              <Link href="/admin">
+                <Flex cursor="pointer">
+                  <Box as="svg" display="inline" w="6" mr="4" fill="current" viewBox="0 0 512 512">
+                    <path
+                      d="M498 142.08l-56.6 56.55-128-128 56.55-56.55a48 48 0 0167.91 0L498 74.17a48 48 0 010 67.91z"
+                      opacity=".4"
+                    />
+                    <path d="M12.85 371.11L.15 485.33a24 24 0 0026.49 26.51l114.14-12.6 278-278-128-128z" />
+                  </Box>
+                  <Text as="span" fontSize="xl">
+                    Write an article...
+                  </Text>
+                </Flex>
+              </Link>
+            </Box>
+          </Card>
+        )}
 
-      {!loading && !postsEnd && (
-        <Button onClick={getMorePosts} colorScheme="teal">
-          Load more
-        </Button>
-      )}
+        <PostFeed posts={posts} />
 
-      <Loader show={loading} />
+        {!loading && !postsEnd && (
+          <Button onClick={getMorePosts} colorScheme="teal">
+            Load more
+          </Button>
+        )}
 
-      {postsEnd && (
-        <Card>
-          <Text textAlign="center" fontSize="xl" color="gray.600">
-            You've reached at the end! 👋
-          </Text>
-        </Card>
-      )}
-    </VStack>
+        <Loader show={loading} />
+
+        {postsEnd && (
+          <Card>
+            <Text textAlign="center" fontSize="xl" color="gray.600">
+              You've reached at the end! 👋
+            </Text>
+          </Card>
+        )}
+      </VStack>
+    </>
   )
 }
 

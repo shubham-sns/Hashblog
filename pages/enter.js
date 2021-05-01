@@ -13,7 +13,8 @@ import debounce from 'lodash.debounce'
 
 import {auth, firestore, googleAuthProvider} from '@/lib/firebase'
 import {useUserContext} from '@/context/user-context'
-import {Metatags} from '@/components/mega-tags'
+
+import {Metatags} from '@/components/meta-tags'
 
 function Enter() {
   const {user, username} = useUserContext()
