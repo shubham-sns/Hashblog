@@ -40,11 +40,11 @@ function PostManager() {
   return (
     <ContainerLayout
       aside={
-        <Box>
+        <>
           {isLoading ? null : (
             <>
               <Link href={`/${post.username}/${post.slug}`}>
-                <Button mt="2" colorScheme="messenger" variant="outline">
+                <Button colorScheme="messenger" variant="outline">
                   <>
                     <AirplaneIcon />
                     View Live
@@ -55,7 +55,7 @@ function PostManager() {
               <DeletePost postRef={postRef} />
             </>
           )}
-        </Box>
+        </>
       }
     >
       {post && (
@@ -90,7 +90,7 @@ function PostForm({defaultValues, postRef}) {
     register,
     reset,
     control,
-    formState: {isDirty, isValid, errors},
+    formState: {isDirty, errors},
   } = useForm({defaultValues})
   const toast = useToast()
 
@@ -206,7 +206,7 @@ function DeletePost({postRef}) {
 
   return (
     <>
-      <Button mt="4" colorScheme="red" variant="outline" onClick={onOpen}>
+      <Button colorScheme="red" variant="outline" onClick={onOpen}>
         <DeleteIcon />
         Delete
       </Button>

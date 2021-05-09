@@ -6,7 +6,6 @@ import {Card} from '@/components/card'
 function ContainerLayout({children, aside}) {
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
 
-  // todo : write better css :(
   return (
     <Stack spacing="1rem" direction={isLessThan768 ? 'column' : 'row'} minH="fit-content">
       <Box as="section" width={isLessThan768 ? '100%' : '60vw'}>
@@ -22,9 +21,12 @@ function ContainerLayout({children, aside}) {
         minH="200px"
         textAlign="center"
         h="0"
-        top="80px"
       >
-        <Card>{aside}</Card>
+        <Card>
+          <Flex alignItems="center" justifyContent="center" direction={isLessThan768 ? 'row' : 'column'} gridGap="4">
+            {aside}
+          </Flex>
+        </Card>
       </Flex>
     </Stack>
   )
