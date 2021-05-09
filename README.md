@@ -1,7 +1,15 @@
 ## Introduction
-Hashblog is blogging platform created using Next.js, Chakra UI and firebase for backend. Its maily built to learn more about Next.js with server-side-rendering and incremental-static-site-regeneration and Chakra UI.
+>Hashblog is blogging platform created using Next.js, Chakra UI and firebase for backend. Its maily built to learn more about Next.js with server-side-rendering and incremental-static-site-regeneration and Chakra UI.
 
-Demo live at: [https://mrugjal.vercel.app/](https://hashblog.vercel.app/)
+<div align="center">
+
+[![read-post-and-react.png](https://i.postimg.cc/qMDjnCBC/read-post-and-react.png)](Read-post-and-heart)
+
+### Feedback Ape 🐵
+
+</div>
+
+Demo live at: [https://hashblog.vercel.app/](https://hashblog.vercel.app/)
 
 ## Features
 
@@ -13,9 +21,17 @@ Demo live at: [https://mrugjal.vercel.app/](https://hashblog.vercel.app/)
 - Create New Blogs with markdown
 - Make blog private/draft or visible
 
-## Codebase
+## Pages / Views
 
-### Technologies
+Blog Feed             |   Profile Page
+:-------------------------:|:-------------------------:
+[![post-feed.png](https://i.postimg.cc/8z3X8fqV/post-feed.png)](Post-Feed)  |  [![profile-page.png](https://i.postimg.cc/90WJPdqy/profile-page.png)](Profil-page)
+
+Manage Post             |  Write Post
+:-------------------------:|:-------------------------:
+[![Manage-Post.png](https://i.postimg.cc/pL9kBXyc/Manage-Post.png)](Manage-post)  |  [![write-post.png](https://i.postimg.cc/YCJRDKWr/write-post.png)](Write-post)
+
+## Technologies
 
 The entire codebase consists in **Javascript**
 
