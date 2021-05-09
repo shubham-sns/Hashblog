@@ -9,11 +9,14 @@ import {useUserContext} from '@/context/user-context'
 import {Avatar} from '@chakra-ui/avatar'
 import {useDisclosure} from '@chakra-ui/hooks'
 import {auth} from '@/lib/firebase'
+import {useMediaQuery} from '@chakra-ui/media-query'
 import {ConfirmDialog} from './logout-dialog'
 
 function Navbar() {
   const {push} = useRouter()
   const {user, username} = useUserContext()
+
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
 
   const {isOpen, onClose, onOpen} = useDisclosure()
 
@@ -50,7 +53,7 @@ function Navbar() {
         <Box as="li">
           <Link href="/">
             <Button
-              size="lg"
+              size={isLessThan768 ? 'md' : 'lg'}
               bg="black"
               color="white"
               _hover={{
@@ -66,14 +69,14 @@ function Navbar() {
           <>
             <Box as="li" marginLeft="auto" marginRight="5">
               <Link href="/admin">
-                <Button colorScheme="messenger" size="lg">
+                <Button colorScheme="messenger" size={isLessThan768 ? 'md' : 'lg'}>
                   Write Posts
                 </Button>
               </Link>
             </Box>
 
             <Box as="li" marginRight="5">
-              <Button size="lg" onClick={onOpen}>
+              <Button size={isLessThan768 ? 'md' : 'lg'} onClick={onOpen}>
                 Log Out
               </Button>
             </Box>
@@ -89,7 +92,7 @@ function Navbar() {
                 }}
                 as="button"
                 onClick={() => push(`/${username}`)}
-                size="md"
+                size={isLessThan768 ? 'md' : 'lg'}
                 name={username}
                 src={user?.photoURL}
               />
@@ -101,7 +104,7 @@ function Navbar() {
           <>
             <Box as="li">
               <Link href="/enter">
-                <Button colorScheme="messenger" size="lg">
+                <Button colorScheme="messenger" size={isLessThan768 ? 'md' : 'lg'}>
                   Login
                 </Button>
               </Link>

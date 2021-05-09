@@ -2,7 +2,7 @@ import {useState} from 'react'
 import {useRouter} from 'next/router'
 
 import {useToast} from '@chakra-ui/toast'
-import {Divider, Text, VStack} from '@chakra-ui/layout'
+import {Text, VStack} from '@chakra-ui/layout'
 import {useCollectionOnce} from 'react-firebase-hooks/firestore'
 import kebabCase from 'lodash.kebabcase'
 import {FormControl, FormHelperText, FormLabel} from '@chakra-ui/form-control'
@@ -35,7 +35,7 @@ function PostList() {
 
   return (
     <>
-      <Text as="h1" fontSize="3xl" mb="4" fontWeight="semibold" textAlign="center">
+      <Text as="h1" fontSize="3xl" my="4" fontWeight="semibold" textAlign="center">
         Manage your posts
       </Text>
 
