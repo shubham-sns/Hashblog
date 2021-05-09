@@ -92,7 +92,7 @@ function Navbar() {
                 }}
                 as="button"
                 onClick={() => push(`/${username}`)}
-                size={isLessThan768 ? 'md' : 'lg'}
+                size="md"
                 name={username}
                 src={user?.photoURL}
               />
