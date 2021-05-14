@@ -34,7 +34,7 @@ function MyApp({Component, pageProps}) {
     <ChakraProvider theme={theme} resetCSS>
       <UserProvider>
         <Navbar />
-        <Box as="main" px="10vw" py="1rem">
+        <Box as="main" px={[2, '10vw']} py="1rem">
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <Component {...pageProps} />
         </Box>
