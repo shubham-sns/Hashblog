@@ -1,14 +1,16 @@
-import {Text} from '@chakra-ui/layout'
+import Link from 'next/link'
+import {Button} from '@chakra-ui/button'
+import {Box, Text} from '@chakra-ui/layout'
 import {useDocumentData} from 'react-firebase-hooks/firestore'
+
+import {firestore, getUserWithUsername, postToJSON} from '@/lib/firebase'
 
 import {PostContent} from '@/components/post-content'
 import {ContainerLayout} from '@/layouts/container'
-import {firestore, getUserWithUsername, postToJSON} from '@/lib/firebase'
 import {AuthCheck} from '@/components/auth-check'
 import {HeartButton} from '@/components/heart-button'
-import Link from 'next/link'
-import {Button} from '@chakra-ui/button'
 import {Metatags} from '@/components/meta-tags'
+import {Card} from '@/components/card'
 
 // incremental static site generation [https://arunoda.me/blog/what-is-nextjs-issg]
 export async function getStaticProps({params}) {
@@ -75,7 +77,18 @@ function Post({path, post}) {
           </>
         }
       >
-        <PostContent post={latestPost} />
+        <Card>
+          <PostContent post={latestPost} />
+        </Card>
+
+        <Card mt="4">
+          <Box
+            as="iframe"
+            src={`https://feedbackape.vercel.app/embed/AftuR9gHsFXiQIWjSgy7/${post.username}/${post.slug}`}
+            frameBorder="0"
+            w="full"
+          />
+        </Card>
       </ContainerLayout>
     </>
   )

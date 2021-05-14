@@ -15,12 +15,14 @@ import {useDisclosure} from '@chakra-ui/hooks'
 import {useDocumentDataOnce} from 'react-firebase-hooks/firestore'
 import {useForm, useWatch} from 'react-hook-form'
 
-import {AuthCheck} from '@/components/auth-check'
-import {ContainerLayout} from '@/layouts/container'
-import {MarkdownRenderer} from '@/components/markdown-renderer'
 import {auth, firestore, serverTimestamp} from '@/lib/firebase'
+
+import {ContainerLayout} from '@/layouts/container'
+import {AuthCheck} from '@/components/auth-check'
+import {MarkdownRenderer} from '@/components/markdown-renderer'
 import {AirplaneIcon, DeleteIcon, EyeIcon, PencilIcon} from 'assets/icons'
 import {ConfirmDialog} from '@/components/logout-dialog'
+import {Card} from '@/components/card'
 
 function AdminPostEdit() {
   return (
@@ -59,7 +61,7 @@ function PostManager() {
       }
     >
       {post && (
-        <>
+        <Card>
           <Text as="h1" fontSize="4xl" fontWeight="semibold" letterSpacing="wide">
             {post.title}
           </Text>
@@ -68,7 +70,7 @@ function PostManager() {
           </Text>
 
           <PostForm postRef={postRef} defaultValues={post} />
-        </>
+        </Card>
       )}
     </ContainerLayout>
   )

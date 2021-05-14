@@ -9,7 +9,7 @@ function ContainerLayout({children, aside}) {
   return (
     <Stack spacing="1rem" direction={isLessThan768 ? 'column' : 'row'} minH="fit-content">
       <Box as="section" width={isLessThan768 ? '100%' : '60vw'}>
-        <Card>{children}</Card>
+        {children}
       </Box>
 
       <Flex
