@@ -85,7 +85,7 @@ function PostItem({post, admin = false}) {
         </Text>
 
         <Box as="span">
-          💗 {post.heartCount || 0} {post.heartCount > 1 ? 'Hearts' : 'Heart'}
+          ❤️ {post.heartCount || 0} {post.heartCount > 1 ? 'Hearts' : 'Heart'}
         </Box>
       </Flex>
     </Card>

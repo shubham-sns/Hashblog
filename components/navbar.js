@@ -1,15 +1,17 @@
+/* eslint-disable no-nested-ternary */
 import Link from 'next/link'
 import {useRef} from 'react'
 import {useRouter} from 'next/router'
+import {useDisclosure} from '@chakra-ui/hooks'
+import {useMediaQuery} from '@chakra-ui/media-query'
 
 import {Box, Flex} from '@chakra-ui/layout'
 import {Button} from '@chakra-ui/button'
-
-import {useUserContext} from '@/context/user-context'
 import {Avatar} from '@chakra-ui/avatar'
-import {useDisclosure} from '@chakra-ui/hooks'
+
 import {auth} from '@/lib/firebase'
-import {useMediaQuery} from '@chakra-ui/media-query'
+import {useUserContext} from '@/context/user-context'
+
 import {ConfirmDialog} from './logout-dialog'
 
 function Navbar() {
@@ -17,6 +19,7 @@ function Navbar() {
   const {user, username} = useUserContext()
 
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+  const [isLessThan500] = useMediaQuery('(max-width: 500px)')
 
   const {isOpen, onClose, onOpen} = useDisclosure()
 
@@ -30,7 +33,7 @@ function Navbar() {
       w="100%"
       color="_text"
       top="0"
-      px="10vw"
+      px={[2, '10vw']}
       py="0"
       zIndex="99"
       borderBottom="1px"
@@ -53,7 +56,7 @@ function Navbar() {
         <Box as="li">
           <Link href="/">
             <Button
-              size={isLessThan768 ? 'md' : 'lg'}
+              size={isLessThan768 ? 'md' : isLessThan500 ? 'sm' : 'lg'}
               bg="black"
               color="white"
               _hover={{
@@ -67,16 +70,16 @@ function Navbar() {
 
         {username && (
           <>
-            <Box as="li" marginLeft="auto" marginRight="5">
+            <Box as="li" marginLeft="auto" marginRight="2">
               <Link href="/admin">
-                <Button colorScheme="messenger" size={isLessThan768 ? 'md' : 'lg'}>
+                <Button colorScheme="messenger" size={isLessThan768 ? 'md' : isLessThan500 ? 'sm' : 'lg'}>
                   Write Posts
                 </Button>
               </Link>
             </Box>
 
             <Box as="li" marginRight="5">
-              <Button size={isLessThan768 ? 'md' : 'lg'} onClick={onOpen}>
+              <Button size={isLessThan768 ? 'md' : isLessThan500 ? 'sm' : 'lg'} onClick={onOpen}>
                 Log Out
               </Button>
             </Box>
@@ -92,7 +95,7 @@ function Navbar() {
                 }}
                 as="button"
                 onClick={() => push(`/${username}`)}
-                size="md"
+                size={isLessThan500 ? 'sm' : 'md'}
                 name={username}
                 src={user?.photoURL}
               />
@@ -104,7 +107,7 @@ function Navbar() {
           <>
             <Box as="li">
               <Link href="/enter">
-                <Button colorScheme="messenger" size={isLessThan768 ? 'md' : 'lg'}>
+                <Button colorScheme="messenger" size={isLessThan768 ? 'md' : isLessThan500 ? 'sm' : 'lg'}>
                   Login
                 </Button>
               </Link>
