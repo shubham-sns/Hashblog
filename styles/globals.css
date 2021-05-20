@@ -1,1 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;1,400&display=swap');
+.github-corner:hover .octo-face {
+  display: inline;
+}
+
+.github-corner .octo-face {
+  display: none;
+}
+
+.github-corner:hover .octo-eye {
+  animation: octocat-blink 560ms ease-in-out;
+}
+
+@keyframes octocat-blink {
+  0%,
+  25%,
+  100% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(0, 0);
+  }
+  85% {
+    transform: scale(0.8, 0.8);
+  }
+}
+
+@media (max-width: 1000px) {
+  .github-corner {
+    display: none;
+  }
+}

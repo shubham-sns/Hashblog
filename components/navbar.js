@@ -13,6 +13,7 @@ import {auth} from '@/lib/firebase'
 import {useUserContext} from '@/context/user-context'
 
 import {ConfirmDialog} from './logout-dialog'
+import {GithubCorner} from './github-corner'
 
 function Navbar() {
   const {push} = useRouter()
@@ -115,6 +116,7 @@ function Navbar() {
           </>
         )}
       </Flex>
+      <GithubCorner />
     </Box>
   )
 }

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import {Button} from '@chakra-ui/button'
 import {Box, Text} from '@chakra-ui/layout'
 import {useDocumentData} from 'react-firebase-hooks/firestore'
+import IframeResizer from 'iframe-resizer-react'
 
 import {firestore, getUserWithUsername, postToJSON} from '@/lib/firebase'
 
@@ -83,10 +84,12 @@ function Post({path, post}) {
 
         <Card mt="4">
           <Box
-            as="iframe"
+            as={IframeResizer}
+            checkOrigin={false}
+            title="Comments"
             src={`https://feedbackape.vercel.app/embed/AftuR9gHsFXiQIWjSgy7/${post.username}/${post.slug}`}
-            frameBorder="0"
             w="full"
+            frameBorder="0"
           />
         </Card>
       </ContainerLayout>
